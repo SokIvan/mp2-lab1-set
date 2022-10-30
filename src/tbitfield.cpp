@@ -11,7 +11,7 @@ TBitField::TBitField(int len)
 {
 	if (len <= 0) throw exception("Negative Length");
 	BitLen = len;
-	if (BitLen % sizeof(TELEM) != 0) MemLen = BitLen / sizeof(TELEM)+1;
+	if (BitLen % sizeof(TELEM) != 0) MemLen = BitLen / sizeof(TELEM) + 1;
 	else MemLen = BitLen / sizeof(TELEM);
 	pMem = new TELEM[MemLen];
 	memset(pMem, 0, sizeof(TELEM) * MemLen);
@@ -64,7 +64,7 @@ void TBitField::ClrBit(const int n) // очистить бит
 
 int TBitField::GetBit(const int n) const // получить значение бита
 {
-	if (n >= 0 && n < BitLen) 
+	if (n >= 0 && n < BitLen)
 		return pMem[GetMemIndex(n)] & GetMemMask(n);
 	else
 		throw exception("Out of range set error ");
@@ -81,7 +81,7 @@ TBitField& TBitField::operator=(const TBitField& bf) // присваивание
 		delete[]pMem;
 		pMem = new TELEM[MemLen];
 	}
-	memcpy(pMem, bf.pMem, MemLen*sizeof(TELEM));
+	memcpy(pMem, bf.pMem, MemLen * sizeof(TELEM));
 	return *this;
 }
 
@@ -117,12 +117,12 @@ TBitField TBitField::operator|(const TBitField& bf) // операция "или"
 	}
 	else
 	{
-			TBitField tmp(bf);
-			for (size_t i = 0; i < MemLen; i++)
-			{
-				tmp.pMem[i] |= pMem[i];
-			}
-			return tmp;
+		TBitField tmp(bf);
+		for (size_t i = 0; i < MemLen; i++)
+		{
+			tmp.pMem[i] |= pMem[i];
+		}
+		return tmp;
 	}
 }
 

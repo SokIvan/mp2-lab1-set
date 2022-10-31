@@ -11,8 +11,8 @@ TBitField::TBitField(int len)
 {
 	if (len <= 0) throw exception("Negative Length");
 	BitLen = len;
-	if (BitLen % sizeof(TELEM) != 0) MemLen = BitLen / sizeof(TELEM) + 1;
-	else MemLen = BitLen / sizeof(TELEM);
+	if (BitLen % (sizeof(TELEM)*8) != 0) MemLen = BitLen / (sizeof(TELEM) * 8) + 1;
+	else MemLen = BitLen / (sizeof(TELEM) * 8);
 	pMem = new TELEM[MemLen];
 	memset(pMem, 0, sizeof(TELEM) * MemLen);
 }
@@ -53,21 +53,25 @@ void TBitField::SetBit(const int n) // установить бит
 	if (n >= 0 && n < BitLen)
 		pMem[GetMemIndex(n)] |= GetMemMask(n);
 	else
-		throw exception("Out of range");
+		throw exception("Out of range SetBit error");
 }
 
 void TBitField::ClrBit(const int n) // очистить бит
 {
-	if (n < 0 || n > BitLen) throw exception("Out of range");
+	if (n < 0 || n > BitLen) throw exception("Out of range ClrBit error");
 	pMem[GetMemIndex(n)] &= ~GetMemMask(n);
 }
 
 int TBitField::GetBit(const int n) const // получить значение бита
 {
 	if (n >= 0 && n < BitLen)
-		return pMem[GetMemIndex(n)] & GetMemMask(n);
+	{
+		if (pMem[GetMemIndex(n)] & GetMemMask(n))
+			return 1;
+		return 0;
+	}
 	else
-		throw exception("Out of range set error ");
+		throw exception("Out of range GetBit error ");
 }
 
 // битовые операции

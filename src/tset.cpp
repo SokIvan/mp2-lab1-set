@@ -100,26 +100,7 @@ TSet TSet::operator~(void) // дополнение
 
 istream& operator>>(istream& istr, TSet& s) // ввод
 {
-    int in = 0;
-    while (in != -777)
-    {
-        cout << "Input value (or -777 to stop initialisation)" << endl;
-        istr >> in;
-        if (in == -777)
-            break;
-        if (in > s.GetMaxPower())
-        {
-            cout << "This greater then " << s.GetMaxPower() << " input another value" << endl;
-        }
-        else if (in < 0)
-        {
-            cout << "This value less 0, input greater value" << endl;
-        }
-        else
-        {
-            s.InsElem(in);
-        }
-    }
+    istr >> s.BitField;
     return istr;
 }
 

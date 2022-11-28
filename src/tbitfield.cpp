@@ -176,15 +176,15 @@ istream& operator>>(istream& istr, TBitField& bf) // ввод
 	for (size_t i = 0; i < bf.GetLength(); i++)
 	{
 		istr >> in;
-		bf.SetBit(i);
+		if (in == 1)
+			bf.SetBit(i);
 	}
 	return istr;
 }
 
 ostream& operator<<(ostream& ostr, const TBitField& bf) // вывод
 {
-	size_t len = bf.GetLength();
-	for (size_t i = 0; i < len; i++)
+	for (size_t i = 0; i < bf.GetLength(); i++)
 	{
 		if (bf.GetBit(i))
 			ostr << '1';

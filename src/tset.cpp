@@ -106,17 +106,6 @@ istream& operator>>(istream& istr, TSet& s) // ввод
 
 ostream& operator<<(ostream& ostr, const TSet& s) // вывод
 {
-    size_t i, n;
-    char ch = '{';
-    n = s.GetMaxPower();
-    for (i = 0; i < n; i++)
-    {
-        if (s.IsMember(i))
-        {
-            ostr << ch << ' ' << i;
-            ch = ',';
-        }
-    }
-    ostr << " }";
+    ostr << s.BitField;
     return ostr;
 }
